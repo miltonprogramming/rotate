@@ -76,13 +76,13 @@ public class BasicGameApp implements Runnable, KeyListener {
         //variable and objects
         //create (construct) the objects needed for the game and load up
         astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
-        int[] x= {100,300,100,300};
-        int[] y= {100,100,300,300};
+        double[] x= {100,300,100,300};
+        double[] y= {100,100,300,300};
         astro = new MyPoly(x, y);
 
 
-        int[] a= {500,600,500,600};
-        int[] b= {100,100,300,300};
+        double[] a= {500,600,500,600};
+        double[] b= {100,100,300,300};
         rastro=new MyPoly(a,b);
         firstVector= new MyVector(200,200,300,300);
 
@@ -122,22 +122,19 @@ public class BasicGameApp implements Runnable, KeyListener {
         Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
-        g.setColor(Color.green);
+        g.setColor(Color.blue);
         g.drawPolygon(astro.polygon);
         g.drawPolygon(rastro.polygon);
 
         g.setColor(Color.red);
-        g.fillRect(astro.centerx-2,astro.centery-2,4,4);
-        g.fillRect(rastro.centerx-2,rastro.centery-2,4,4);
+        g.fillRect((int)(astro.centerx-2),(int)(astro.centery-2),4,4);
+        g.fillRect((int)(rastro.centerx-2),(int)(rastro.centery-2),4,4);
+        firstVector.rotate(1);
         System.out.println(firstVector.headx);
+        g.drawLine(0,0,(int)(firstVector.headx),(int)(firstVector.heady));
+
         g.drawLine((int)(firstVector.tailX+firstVector.shiftX),(int)(firstVector.tailY+firstVector.shiftY),(int)(firstVector.headx+firstVector.shiftX),(int)(firstVector.heady+ firstVector.shiftY));
-/*
-        for(int a=0;a< astro.rays.size();a++) {
-            g.drawLine((int) (astro.rays.get(a).tailX + astro.rays.get(a).shiftX), (int) (astro.rays.get(a).tailY + astro.rays.get(a).shiftY), (int) (astro.rays.get(a).headx + astro.rays.get(a).shiftX), (int) (astro.rays.get(a).heady + astro.rays.get(a).shiftY));
-        //    astro.rays.get(a).rotate(1);
-           // astro.
-        }
-*/
+
         try {
             Thread.sleep(20);
         } catch (InterruptedException e) {
@@ -147,7 +144,7 @@ public class BasicGameApp implements Runnable, KeyListener {
       //  g.drawOval(0+astro.centerx/2,astro.centery/2,(int)(141.4213562373095*2),(int)(141.4213562373095*2));
 
         firstVector.rotate(1);
-      //  astro.rotate(1);
+        astro.rotate(1);
         astro.update();
 
         rastro.move();

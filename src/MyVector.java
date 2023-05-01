@@ -5,7 +5,7 @@ public class MyVector {
     double angleInDegrees ;
     double shiftX,shiftY;
     public MyVector(double mag, double dir){
-        theta= dir;
+        angleInDegrees= dir;
         magnitude= mag;
     }
     public MyVector(double x1,double y1,double x2, double y2){
@@ -30,20 +30,26 @@ public class MyVector {
         theta= angleInDegrees;
         rotate(0);
     }
-
-    public void rotate(double deg){
-
-
-            //normalize(vector); // No  need to normalize, vector is already ok...
-
-            newheadx = (double)(headx * Math.cos(Math.toRadians(deg)) - heady * Math.sin(Math.toRadians(deg)));
-
-            newheady = (double)(headx * Math.sin(Math.toRadians(deg)) + heady * Math.cos(Math.toRadians(deg))) ;
-
-            headx=newheadx;
-            heady= newheady;
-            System.out.println("my mag = "+magnitude);
-
+    public void rotate(double turnamount) {
+        double newDirection = turnamount + angleInDegrees;
+        if (newDirection >= 360.0) {
+            newDirection -= 360.0;
+        }
+        angleInDegrees= newDirection;
+        convertToCartesian(magnitude,angleInDegrees);
+        System.out.println("test"+newDirection);
     }
+    public void  convertToCartesian(double mag, double dir) {
+        double radians = Math.toRadians(dir);
+
+        headx = mag * Math.cos(radians);
+        heady = mag * Math.sin(radians);
+        System.out.println(headx);
+        
+    }
+
+
+
+
 
 }
